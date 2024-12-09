@@ -161,6 +161,7 @@ def logCanvasKey():
 
 @app.route('/api/login', methods=['POST'])
 def login():
+    init_db()
     data = request.json
     email = data['email']
     password = data['password']
