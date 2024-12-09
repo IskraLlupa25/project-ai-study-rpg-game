@@ -9,12 +9,22 @@ import os
 app = Flask(__name__)
 CORS(app,  resources={r"/*": {"origins": "http://localhost:5173"}})  # To allow cross-origin requests from your React frontend
 
-# Use an absolute path for the SQLite database file
-DB_PATH = os.path.join(os.path.dirname(__file__), 'users.db')
+# Database Path Setup
+LOCAL_DB_PATH = os.path.join(os.path.dirname(__file__), 'users.db')
+TMP_DB_PATH = '/tmp/users.db'
+DB_PATH = TMP_DB_PATH if os.path.exists(TMP_DB_PATH) else LOCAL_DB_PATH
 
 # Will Create SQLite database and table if not exists
 def init_db():
-    conn = sqlite3.connect(DB_PATH)
+    if not os.path.exists(TMP_DB_PATH):
+        print(f"Copying database to {TMP_DB_PATH}...")
+        if os.path.exists(LOCAL_DB_PATH):
+            import shutil
+            shutil.copyfile(LOCAL_DB_PATH, TMP_DB_PATH)
+        else:
+            print("Initializing new database...")
+
+    conn = sqlite3.connect(TMP_DB_PATH)
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
