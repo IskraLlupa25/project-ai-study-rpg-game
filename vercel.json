@@ -16,7 +16,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "Canvas_Game/src/app.py"
+      "dest": "CanvasGame/dist/index.html"
     }
   ],
   "framework": "vite"
