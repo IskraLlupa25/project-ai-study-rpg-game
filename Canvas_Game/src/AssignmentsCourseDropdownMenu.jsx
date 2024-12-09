@@ -17,7 +17,7 @@ const CourseDropdownMenu = (props) => {
     /* fetch course names from backend */
     const fetchCourses = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/coursesFromDb?email=${email}`);  //fetches {python function} from backend and sends email as a query param
+            const response = await fetch(`http://localhost:5000/api/coursesFromDb?email=${email}`);  //fetches {python function} from backend and sends email as a query param
             if (!response.ok) {
                 throw new Error('Failed to fetch courses');
             }

@@ -82,7 +82,7 @@ def init_db():
     conn.close()
     
 #sign up logic here
-@app.route('/signup', methods=['POST'])
+@app.route('/api/signup', methods=['POST'])
 def signup():
     data = request.json
     name = data['name']
@@ -105,7 +105,7 @@ def signup():
     finally:
         conn.close()
 
-@app.route('/canvasKey', methods=['POST'])
+@app.route('/api/canvasKey', methods=['POST'])
 def logCanvasKey():
         data = request.json
         print('Received payload:', data)
@@ -145,7 +145,7 @@ def logCanvasKey():
             print("Error validating Canvas key:", str(e))
             return jsonify({"message": "An error occurred while validating the Canvas key."}), 500
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     data = request.json
     email = data['email']
@@ -173,7 +173,7 @@ def login():
         return jsonify({"message": "Invalid password"}), 401
     
 #account age
-@app.route('/account-age', methods=['GET'])
+@app.route('/api/account-age', methods=['GET'])
 def account_age():
     email = request.args.get('email')  # Get the email from query parameters
 
@@ -220,7 +220,7 @@ def get_user_by_email():
         return jsonify({"message": "User not found"}), 404
 
 #Getting unsubmitted assignment data from the user database
-@app.route('/getUnsubmittedAssignmentsFromDb', methods=['GET'])
+@app.route('/api/getUnsubmittedAssignmentsFromDb', methods=['GET'])
 def get_assignments_for_dashboard():
     email = request.args.get('email')  # Email is provided as a query parameter
 
@@ -311,7 +311,7 @@ def get_assignments_for_dashboard():
 
 
 #Getting unsubmitted assignment data from the user database
-@app.route('/getAllAssignmentsFromDb', methods=['GET'])
+@app.route('/api/getAllAssignmentsFromDb', methods=['GET'])
 def get_all_assignments_from_user_db():
     email = request.args.get('email')  # Email is provided as a query parameter
 
@@ -383,7 +383,7 @@ def get_all_assignments_from_user_db():
 
 
 #get Courses from db
-@app.route('/coursesFromDb', methods=['GET'])
+@app.route('/api/coursesFromDb', methods=['GET'])
 def get_courselist_from_database():
     email = request.args.get('email')  # Email is provided as a query parameter
 
@@ -435,7 +435,7 @@ def get_courselist_from_database():
 
 
 #fetches course and assignment info from canvasAPI and puts them in the user database
-@app.route('/getCourseAndAssignmentsInfoFromCanvas', methods=['POST'])
+@app.route('/api/getCourseAndAssignmentsInfoFromCanvas', methods=['POST'])
 def getAllAssignments(): 
     data = request.json	#gets data from fetch call in react comp (signup/assignmentpage rn)
     #print('recieved payload: ', data)	#testing

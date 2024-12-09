@@ -78,7 +78,7 @@ const SignUpForm = ({ switchToLogin, switchToCanvas }) => {
       // setSuccess(true);
       // setCanvasKey(''); // Clear the input field after successful submission
 
-      const response = await fetch('http://localhost:5000/signup', {
+      const response = await fetch('http://localhost:5000/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ const SignUpForm = ({ switchToLogin, switchToCanvas }) => {
         canvasKey: formData.canvasKey,
         email: formData.email,
       });
-      const validateResponse = await fetch('http://localhost:5000/canvasKey', {
+      const validateResponse = await fetch('http://localhost:5000/api/canvasKey', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ const SignUpForm = ({ switchToLogin, switchToCanvas }) => {
 
       
       //invokes getCourseAndAssignmentsInfoFromCanvas function in app.py: stores canvas course and assignment info into 
-      const getAssignmentResponse = await fetch('http://localhost:5000/getCourseAndAssignmentsInfoFromCanvas', {
+      const getAssignmentResponse = await fetch('http://localhost:5000/api/getCourseAndAssignmentsInfoFromCanvas', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/json',

@@ -48,7 +48,7 @@ const UserProfile = ({ email }) => {
         
         const data = await response.json();
          // Fetch account age
-        const ageResponse = await fetch(`http://localhost:5000/account-age?email=${email}`);
+        const ageResponse = await fetch(`http://localhost:5000/api/account-age?email=${email}`);
         if (!ageResponse.ok) {
           throw new Error(`HTTP error! status: ${ageResponse.status} ${ageResponse.statusText}`);
         }
