@@ -165,7 +165,7 @@ def login():
     email = data['email']
     password = data['password']
 
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(TMP_DB_PATH)
     cursor = conn.cursor()
 
     # Check if the account exists
