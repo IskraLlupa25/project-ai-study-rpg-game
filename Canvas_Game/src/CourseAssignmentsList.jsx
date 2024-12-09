@@ -3,6 +3,7 @@ import {useState, useEffect} from "react"
 
 import {assignments, categories, courses} from './data/mockAssignmentsData.js';
 import CategorizedAssignmentsList from './CategorizedAssignmentsList.jsx';
+import API_BASE_URL from './apiconfig.js'
 
 
 /*Makes a categorized list of assignments for a class: CourseAssignmentsList 
@@ -23,7 +24,7 @@ const CourseAssignmentsList= (props) => {    //could do: {courseValueSelected}
     useEffect(() => {
         const fetchAllAssignmentsFromDB = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/getUnsubmittedAssignmentsFromDb?email=${email}`);
+                const response = await fetch(`${API_BASE_URL}/api/getUnsubmittedAssignmentsFromDb?email=${email}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch tasks');
                 }

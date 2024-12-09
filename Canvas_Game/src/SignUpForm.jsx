@@ -5,6 +5,7 @@ import wizardLogo from './assets/WizardLogo.png';
 import CanvasPage from './ConnectCanvas';
 import { Tooltip, IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import API_BASE_URL from './apiconfig'
 
 const SignUpForm = ({ switchToLogin, switchToCanvas }) => {
   const [formData, setFormData] = useState({
@@ -78,7 +79,7 @@ const SignUpForm = ({ switchToLogin, switchToCanvas }) => {
       // setSuccess(true);
       // setCanvasKey(''); // Clear the input field after successful submission
 
-      const response = await fetch('http://localhost:5000/api/signup', {
+      const response = await fetch(`${API_BASE_URL}/api/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -106,7 +107,7 @@ const SignUpForm = ({ switchToLogin, switchToCanvas }) => {
         canvasKey: formData.canvasKey,
         email: formData.email,
       });
-      const validateResponse = await fetch('http://localhost:5000/api/canvasKey', {
+      const validateResponse = await fetch(`${API_BASE_URL}/api/canvasKey`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +128,7 @@ const SignUpForm = ({ switchToLogin, switchToCanvas }) => {
 
       
       //invokes getCourseAndAssignmentsInfoFromCanvas function in app.py: stores canvas course and assignment info into 
-      const getAssignmentResponse = await fetch('http://localhost:5000/api/getCourseAndAssignmentsInfoFromCanvas', {
+      const getAssignmentResponse = await fetch(`${API_BASE_URL}/api/getCourseAndAssignmentsInfoFromCanvas`, {
           method: 'POST',
           headers: {
           'Content-Type': 'application/json',

@@ -17,6 +17,7 @@ import { tokens } from '../theme'; // assuming the same theme tokens are used he
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import parse from 'html-react-parser';
+import API_BASE_URL from '../apiconfig'
 
 
 const JiraBoard = ({email}) => {
@@ -68,7 +69,7 @@ const JiraBoard = ({email}) => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/getUnsubmittedAssignmentsFromDb?email=${email}`);
+        const response = await fetch(`${API_BASE_URL}/api/getUnsubmittedAssignmentsFromDb?email=${email}`);
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
         }
@@ -136,7 +137,7 @@ const JiraBoard = ({email}) => {
     //console.log("Drag drop, tasks:"+ JSON.stringify(tasks));
 
     // Optionally, update the task's status in the backend
-    fetch(`http://localhost:5000/api/updateTaskStatus`, {
+    fetch(`${API_BASE_URL}/api/updateTaskStatus`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -199,7 +200,7 @@ const JiraBoard = ({email}) => {
     setTasks(updatedTasks);
 
     //Delete the task from the backend
-    fetch(`http://localhost:5000/api/deleteTask`, {
+    fetch(`${API_BASE_URL}/api/deleteTask`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

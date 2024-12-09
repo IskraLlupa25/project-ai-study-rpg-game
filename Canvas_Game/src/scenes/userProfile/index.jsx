@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 //import { user } from '../../data/mockProfileData';
 import { Header } from '../../components';
 import { tokens } from '../../theme'; 
+import API_BASE_URL from '../../apiconfig'
 
 const ProfilePaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -40,7 +41,7 @@ const UserProfile = ({ email }) => {
       setError(null);
 
       try {
-        const response = await fetch(`http://localhost:5000/api/user?email=${email}`);
+        const response = await fetch(`${API_BASE_URL}/api/user?email=${email}`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status} ${response.statusText}`);
@@ -48,7 +49,7 @@ const UserProfile = ({ email }) => {
         
         const data = await response.json();
          // Fetch account age
-        const ageResponse = await fetch(`http://localhost:5000/api/account-age?email=${email}`);
+        const ageResponse = await fetch(`${API_BASE_URL}/api/account-age?email=${email}`);
         if (!ageResponse.ok) {
           throw new Error(`HTTP error! status: ${ageResponse.status} ${ageResponse.statusText}`);
         }

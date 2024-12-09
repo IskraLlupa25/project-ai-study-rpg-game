@@ -32,6 +32,7 @@ import avatar from "../../../assets/avatar.webp";
 import logo from "../../../assets/WizardLogo.png";
 import Item from "./Item";
 import { ToggledContext } from "../../../App";
+import API_BASE_URL from '../../../apiconfig'
 
 const SideBar = ({email}) => {
   const { toggled, setToggled } = useContext(ToggledContext) || {}; // Ensure context is not null
@@ -47,7 +48,7 @@ const SideBar = ({email}) => {
     useEffect(() => {
       const fetchUserData = async () => {
         try {
-          const response = await fetch(`http://localhost:5000/api/user?email=${email}`);
+          const response = await fetch(`${API_BASE_URL}/api/user?email=${email}`);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }

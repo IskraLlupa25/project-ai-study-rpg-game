@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from './apiconfig'
 
 const CanvasKeyForm = () => {
   const [canvasKey, setCanvasKey] = useState('');
@@ -28,7 +29,7 @@ const CanvasKeyForm = () => {
     console.log(email);
   
     try {
-      const response = await fetch('http://localhost:5000/api/canvasKey', {
+      const response = await fetch(`${API_BASE_URL}/api/canvasKey`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

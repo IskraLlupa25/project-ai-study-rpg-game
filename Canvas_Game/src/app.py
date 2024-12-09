@@ -108,7 +108,7 @@ def signup():
     selectedMotto = data['selectedMotto']
 
     try:
-        conn = sqlite3.connect(DB_PATH)
+        conn = sqlite3.connect(TMP_DB_PATH)
         cursor = conn.cursor()
         cursor.execute('INSERT INTO users (name, last_name, nickname, email, password, canvas_key, selectedMotto) VALUES (?, ?, ?, ?, ?, ?, ?)', 
                        (name, last_name, nickname, email, password, canvas_key, selectedMotto))
@@ -145,7 +145,7 @@ def logCanvasKey():
                 print("picture is" + picture)
 
                 # Save the token in the database
-                conn = sqlite3.connect(DB_PATH)
+                conn = sqlite3.connect(TMP_DB_PATH)
                 cursor = conn.cursor()
                 cursor.execute("UPDATE users SET canvas_key = ?, picture_url = ? WHERE email = ?", (canvasKey, picture, email ))
                 conn.commit()
@@ -481,7 +481,7 @@ def getAllAssignments():
                     enrollment_term_id = course['enrollment_term_id']
 
                     #puts data into courses table in user database
-                    conn = sqlite3.connect(DB_PATH)  #NEED TO TROUBLESHOOT
+                    conn = sqlite3.connect(TMP_DB_PATH)  #NEED TO TROUBLESHOOT
                     cursor = conn.cursor()
 
                     #gets user_id from users table
@@ -562,7 +562,7 @@ def getAssignmentsByCourse(course_id, canvasKey):
         getAssignmentList = response.json()  #get assignments list(array of assignment objects) from canvas
         #print(getAssignmentList[1], '\n') #testing
 
-        conn = sqlite3.connect(DB_PATH)  #NEED TO TROUBLESHOOT, maybe do it differently idk
+        conn = sqlite3.connect(TMP_DB_PATH)  #NEED TO TROUBLESHOOT, maybe do it differently idk
         cursor = conn.cursor()
         
         #gets user_id from users table
@@ -691,7 +691,7 @@ def getPlayerGold():
 
 
 def get_db_connection():
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(TMP_DB_PATH)
     conn.row_factory = sqlite3.Row  # Makes fetching rows easier with named columns
     return conn
 
