@@ -4,13 +4,17 @@ import requests
 from flask_cors import CORS
 from datetime import datetime, timedelta, timezone
 from dateutil.relativedelta import relativedelta
+import os
 
 app = Flask(__name__)
 CORS(app,  resources={r"/*": {"origins": "http://localhost:5173"}})  # To allow cross-origin requests from your React frontend
 
+# Use an absolute path for the SQLite database file
+DB_PATH = os.path.join(os.path.dirname(__file__), 'users.db')
+
 # Will Create SQLite database and table if not exists
 def init_db():
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
@@ -94,7 +98,7 @@ def signup():
     selectedMotto = data['selectedMotto']
 
     try:
-        conn = sqlite3.connect('users.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('INSERT INTO users (name, last_name, nickname, email, password, canvas_key, selectedMotto) VALUES (?, ?, ?, ?, ?, ?, ?)', 
                        (name, last_name, nickname, email, password, canvas_key, selectedMotto))
@@ -131,7 +135,7 @@ def logCanvasKey():
                 print("picture is" + picture)
 
                 # Save the token in the database
-                conn = sqlite3.connect('users.db')
+                conn = sqlite3.connect(DB_PATH)
                 cursor = conn.cursor()
                 cursor.execute("UPDATE users SET canvas_key = ?, picture_url = ? WHERE email = ?", (canvasKey, picture, email ))
                 conn.commit()
@@ -151,7 +155,7 @@ def login():
     email = data['email']
     password = data['password']
 
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
     # Check if the account exists
@@ -466,7 +470,7 @@ def getAllAssignments():
                     enrollment_term_id = course['enrollment_term_id']
 
                     #puts data into courses table in user database
-                    conn = sqlite3.connect('users.db')  #NEED TO TROUBLESHOOT
+                    conn = sqlite3.connect(DB_PATH)  #NEED TO TROUBLESHOOT
                     cursor = conn.cursor()
 
                     #gets user_id from users table
@@ -547,7 +551,7 @@ def getAssignmentsByCourse(course_id, canvasKey):
         getAssignmentList = response.json()  #get assignments list(array of assignment objects) from canvas
         #print(getAssignmentList[1], '\n') #testing
 
-        conn = sqlite3.connect('users.db')  #NEED TO TROUBLESHOOT, maybe do it differently idk
+        conn = sqlite3.connect(DB_PATH)  #NEED TO TROUBLESHOOT, maybe do it differently idk
         cursor = conn.cursor()
         
         #gets user_id from users table
@@ -676,7 +680,7 @@ def getPlayerGold():
 
 
 def get_db_connection():
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row  # Makes fetching rows easier with named columns
     return conn
 

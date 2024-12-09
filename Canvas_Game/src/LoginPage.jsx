@@ -3,6 +3,7 @@ import styles from './LoginPage.module.css';
 import InputField from './InputField';
 import wizardLogo from './assets/WizardLogo.png';
 import { useAuth } from './Router'; 
+import API_BASE_URL from './apiconfig';
 
 const LoginPage = ({ switchToSignUp, switchToDashboard }) => { 
   const [email, setEmail] = useState('');
@@ -23,7 +24,8 @@ const LoginPage = ({ switchToSignUp, switchToDashboard }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/login', {
+      console.log("using base uri " + API_BASE_URL)
+      const response = await fetch(`${API_BASE_URL}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
